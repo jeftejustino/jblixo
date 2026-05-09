@@ -16,7 +16,6 @@ TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 if not TOKEN:
     raise RuntimeError("DISCORD_BOT_TOKEN não configurado")
 PREFIX = "lx"                       # Prefixo dos comandos
-# ─────────────────────────────────────────────
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -33,6 +32,18 @@ start_time:    dict[int, float]           = {}
 pause_time:    dict[int, float]           = {}
 paused_at:     dict[int, float]           = {}
 
+# Cookies do YouTube — lê da variável de ambiente (Railway) ou do arquivo local
+import os, tempfile
+
+_cookies_env = os.environ.get("YOUTUBE_COOKIES")
+if _cookies_env:
+    _tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False)
+    _tmp.write(_cookies_env)
+    _tmp.close()
+    COOKIES_FILE = _tmp.name
+else:
+    COOKIES_FILE = "cookies.txt"  # fallback para uso local
+
 YTDL_OPTS = {
     "format": "bestaudio/best",
     "noplaylist": True,
@@ -40,6 +51,7 @@ YTDL_OPTS = {
     "no_warnings": True,
     "default_search": "ytsearch",
     "source_address": "0.0.0.0",
+    "cookiefile": COOKIES_FILE,
 }
 
 YTDL_PLAYLIST_OPTS = {
@@ -48,6 +60,7 @@ YTDL_PLAYLIST_OPTS = {
     "extract_flat": True,
     "noplaylist": False,
     "yes_playlist": True,
+    "cookiefile": COOKIES_FILE,
 }
 
 FFMPEG_OPTS = {
