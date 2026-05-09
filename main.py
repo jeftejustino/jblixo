@@ -4,12 +4,14 @@ import yt_dlp
 import asyncio
 import re
 import time
+from dotenv import load_dotenv
 import os
 from collections import deque
 
 # ─────────────────────────────────────────────
 #  CONFIGURAÇÃO — edite aqui
 # ─────────────────────────────────────────────
+load_dotenv()
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')         # Cole o token do seu bot
 PREFIX = "lx"                       # Prefixo dos comandos
 # ─────────────────────────────────────────────
