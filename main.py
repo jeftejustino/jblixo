@@ -4,13 +4,14 @@ import yt_dlp
 import asyncio
 import re
 import time
+from dotenv import load_dotenv
 import os
 from collections import deque
 
 # ─────────────────────────────────────────────
 #  CONFIGURAÇÃO — edite aqui
 # ─────────────────────────────────────────────
-print("ENV:", dict(os.environ))
+load_dotenv()
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 if not TOKEN:
     raise RuntimeError("DISCORD_BOT_TOKEN não configurado")
